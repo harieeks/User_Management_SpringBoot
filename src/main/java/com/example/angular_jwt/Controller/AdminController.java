@@ -6,6 +6,7 @@ import com.example.angular_jwt.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,13 +18,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/admin")
 @CrossOrigin("*")
+@Secured("ROLE_ADMIN")
 public class AdminController {
 
     @Autowired
     private AuthService authService;
 
     @GetMapping("/users")
-//    @PreAuthorize("hasRole('ADMIN')")
+   @PreAuthorize("hasRole('ADMIN')")
     public List<User> getAllUsers(){
         return authService.getAllUsers();
     }
